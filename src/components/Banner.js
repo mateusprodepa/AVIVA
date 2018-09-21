@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import { Typography, Paper } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
+import PropTypes from 'prop-types';
+
+import BannerImg from '../assets/media/img/blood-donation.jpg';
 
 const styles = theme => {
   console.log(theme.palette)
@@ -20,9 +22,13 @@ const styles = theme => {
 
     banner: {
       backgroundColor: '#F74D4D',
-      height: '300px',
+      height: '500px',
       width: '100%',
       borderRadius: theme.shape.borderRadius,
+      // background: `url(${BannerImg})`,
+      backgroundSize: 'cover',
+      backgroundAttachment: 'fixed',
+      backgroundOrigin: 'center'
     },
   }
 }
@@ -33,10 +39,13 @@ const banner = (props) => {
 
   return (
     <Paper className={ classes.root }>
-      <div className={ classes.banner }>
-      </div>
+      <div className={ classes.banner }></div>
     </Paper>
   )
 }
+
+banner.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 export default withStyles(styles)(banner);

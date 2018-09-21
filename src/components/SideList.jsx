@@ -9,6 +9,8 @@ import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import Divider from '@material-ui/core/Divider';
 
+import PropTypes from 'prop-types';
+
 const sideList = (props) => {
 
   const { classes } = props;
@@ -40,6 +42,10 @@ const sideList = (props) => {
       </List>
     </div>
   );
+}
+
+sideList.propTypes = {
+  classes: PropTypes.object.isRequired
 }
 
 export default sideList;

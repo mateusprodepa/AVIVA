@@ -8,6 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
+import Grid from '@material-ui/core/Grid';
+import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 
 const suggestions = [
@@ -114,13 +116,21 @@ function getSuggestionValue(suggestion) {
 }
 
 const styles = theme => ({
+  grid: {
+    // textAlign: 'center'
+    // backgroundColor: '#111'
+  },
   root: {
-    height: 250,
+    height: 70,
     flexGrow: 1,
     maxWidth: '1200px',
     margin: '20px auto',
+    marginBottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
     [theme.breakpoints.up('sm')]: {
-      width: '80%'
+      width: '85%'
     }
   },
   container: {
@@ -144,15 +154,25 @@ const styles = theme => ({
   divider: {
     height: theme.spacing.unit * 2,
   },
+  select: {
+    padding: 8,
+    width: '100%'
+  }
 });
 
-class IntegrationAutosuggest extends React.Component {
+class SearchForUsersRequests extends React.Component {
   popperNode = null;
 
   state = {
     single: '',
     popper: '',
     suggestions: [],
+    role: "Doador",
+    bloodType: 'A-'
+  };
+
+  handleRoleChange = event => {
+  this.setState({ [event.target.name]: event.target.value });
   };
 
   handleSuggestionsFetchRequested = ({ value }) => {
@@ -187,44 +207,87 @@ class IntegrationAutosuggest extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Autosuggest
-          {...autosuggestProps}
-          inputProps={{
-            classes,
-            label: 'Cidade',
-            placeholder: 'Em qual cidade você está precisando de doação?',
-            value: this.state.popper,
-            onChange: this.handleChange('popper'),
-            inputRef: node => {
-              this.popperNode = node;
-            },
-            InputLabelProps: {
-              shrink: true,
-            },
-          }}
-          theme={{
-            suggestionsList: classes.suggestionsList,
-            suggestion: classes.suggestion,
-          }}
-          renderSuggestionsContainer={options => (
-            <Popper anchorEl={this.popperNode} open={Boolean(options.children)}>
-              <Paper
-                square
-                {...options.containerProps}
-                style={{ width: this.popperNode ? this.popperNode.clientWidth : null }}
+
+        <Grid container xs className={classes.grid} spacing={Number(16)}>
+          <Grid item xs={8}>
+            <Autosuggest
+              {...autosuggestProps}
+              inputProps={{
+                classes,
+                label: 'Cidade',
+                placeholder: 'Em qual cidade você está precisando de doação?',
+                value: this.state.popper,
+                onChange: this.handleChange('popper'),
+                inputRef: node => {
+                  this.popperNode = node;
+                },
+                InputLabelProps: {
+                  shrink: true,
+                },
+              }}
+              theme={{
+                suggestionsList: classes.suggestionsList,
+                suggestion: classes.suggestion,
+              }}
+              renderSuggestionsContainer={options => (
+                <Popper anchorEl={this.popperNode} open={Boolean(options.children)}>
+                  <Paper
+                    square
+                    {...options.containerProps}
+                    style={{ width: this.popperNode ? this.popperNode.clientWidth : null }}
+                    >
+                    {options.children}
+                  </Paper>
+                </Popper>
+              )}
+              />
+          </Grid>
+
+          <Grid item xs={2}>
+            <Select
+              className={classes.select}
+              value={this.state.role}
+              onChange={this.handleRoleChange}
+              inputProps={{
+                name: 'role',
+                id: 'role-simple',
+              }}
               >
-                {options.children}
-              </Paper>
-            </Popper>
-          )}
-        />
+              <MenuItem value='Doador'>Doador</MenuItem>
+              <MenuItem value='Receptor'>Receptor</MenuItem>
+            </Select>
+          </Grid>
+
+          <Grid item xs={2}>
+            <Select
+              className={classes.select}
+              value={this.state.bloodType}
+              onChange={this.handleRoleChange}
+              inputProps={{
+                name: 'bloodType',
+                id: 'blood-type-simple',
+              }}
+              >
+              <MenuItem value='A-'>A-</MenuItem>
+              <MenuItem value='A+'>A+</MenuItem>
+              <MenuItem value='B-'>B-</MenuItem>
+              <MenuItem value='B+'>B+</MenuItem>
+              <MenuItem value='AB-'>AB-</MenuItem>
+              <MenuItem value='AB+'>AB+</MenuItem>
+              <MenuItem value='O-'>O-</MenuItem>
+              <MenuItem value='O+'>O+</MenuItem>
+            </Select>
+          </Grid>
+
+        </Grid>
+
       </div>
     );
   }
 }
 
-IntegrationAutosuggest.propTypes = {
+SearchForUsersRequests.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(IntegrationAutosuggest);
+export default withStyles(styles)(SearchForUsersRequests);
