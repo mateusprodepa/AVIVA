@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import Avatar from './Avatar';
 
 import { AppBar, Toolbar, IconButton, Typography, Input, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as drawerActions from '../store/actions/drawer';
+import * as authActions from '../store/actions/auth';
+
+import { logout } from '../utils/utils';
 
 const styles = theme => ({
   root: {
@@ -70,44 +77,95 @@ const styles = theme => ({
       },
     },
   },
+  menu: {
+    transform: 'translateX(-60px)'
+  }
 });
 
-const header = (props) => {
+class Header extends Component {
 
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton onClick={ () => props.toggleDrawer(1) } className={classes.menuButton} color="inherit" aria-label="Open drawer">
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="title" color="inherit" noWrap>
-            AVIVA!
-          </Typography>
-          <div className={classes.grow} />
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+  state = {
+    anchorEl: null,
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  signOut = () => {
+    this.handleClose();
+    logout();
+  }
+
+
+  render() {
+    const { classes } = this.props;
+
+    this.props.isLoggedIn();
+
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton onClick={ () => this.props.toggleDrawer(1) } className={classes.menuButton} color="inherit" aria-label="Open drawer">
+              <MenuIcon />
+            </IconButton>
+            <Typography className={classes.title} variant="title" color="inherit" noWrap>
+              AVIVA!
+            </Typography>
+            <div className={classes.grow} />
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <Input
+                placeholder="Pesquisar…"
+                disableUnderline
+                classes={{ root: classes.inputRoot, input: classes.inputInput }}
+                />
             </div>
-            <Input
-              placeholder="Pesquisar…"
-              disableUnderline
-              classes={{ root: classes.inputRoot, input: classes.inputInput }}
-            />
-          </div>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  )
+            { !this.props.userIsLoggedIn ? <Button onClick={ () => this.props.history.push('/signIn') } color="inherit">Login</Button> : (
+              <React.Fragment>
+                <Avatar
+                  aria-owns={this.state.anchorEl ? 'simple-menu' : null}
+                  aria-haspopup="true"
+                  onClick={this.handleClick}
+                  img={this.props.user.img}/>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={this.state.anchorEl}
+                  open={Boolean(this.state.anchorEl)}
+                  onClose={this.handleClose}
+                  className={classes.menu}
+                >
+                <MenuItem onClick={this.handleClose}>Meu Perfil</MenuItem>
+                <MenuItem onClick={this.handleClose}>Configurações da Conta</MenuItem>
+                <MenuItem onClick={this.signOut}>Logout</MenuItem>
+              </Menu>
+              </React.Fragment>
+            ) }
+          </Toolbar>
+        </AppBar>
+      </div>
+    )
+  }
+
 }
 
-header.propTypes = {
+Header.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(drawerActions, dispatch);
+const mapStateToProps = state => ({
+  userIsLoggedIn: state.userIsLoggedIn,
+  user: state.user
+})
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(header));
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...drawerActions, ...authActions }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Header));

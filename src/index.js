@@ -12,8 +12,6 @@ import Store from './store/store';
 import { MuiThemeProvider as Theme, createMuiTheme } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
 
-console.log(red);
-
 const theme = createMuiTheme({
   palette: {
     primary: {

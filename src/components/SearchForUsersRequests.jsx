@@ -124,13 +124,14 @@ const styles = theme => ({
     height: 70,
     flexGrow: 1,
     maxWidth: '1200px',
-    margin: '20px auto',
+    margin: '0 auto',
+    paddingTop: '14px',
     marginBottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
     [theme.breakpoints.up('sm')]: {
-      width: '85%'
+      width: '90%'
     }
   },
   container: {
@@ -156,7 +157,7 @@ const styles = theme => ({
   },
   select: {
     padding: 8,
-    width: '100%'
+    width: '90%'
   }
 });
 
@@ -208,7 +209,7 @@ class SearchForUsersRequests extends React.Component {
     return (
       <div className={classes.root}>
 
-        <Grid container xs className={classes.grid} spacing={Number(16)}>
+        <Grid container className={classes.grid} spacing={Number(16)}>
           <Grid item xs={8}>
             <Autosuggest
               {...autosuggestProps}

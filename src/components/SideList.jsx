@@ -22,22 +22,22 @@ const sideList = (props) => {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="Inbox" />
+          <ListItemText primary="Teste" />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <DraftsIcon />
           </ListItemIcon>
-          <ListItemText primary="Drafts" />
+          <ListItemText primary="Teste" />
         </ListItem>
       </List>
       <Divider />
       <List component="nav">
         <ListItem button>
-          <ListItemText primary="Trash" />
+          <ListItemText primary="Teste" />
         </ListItem>
         <ListItem button component="a" href="#simple-list">
-          <ListItemText primary="Spam" />
+          <ListItemText primary="Teste" />
         </ListItem>
       </List>
     </div>

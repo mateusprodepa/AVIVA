@@ -7,7 +7,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_DRAWER:
-      console.log(action);
       return {
         isOpen: action.payload
       }

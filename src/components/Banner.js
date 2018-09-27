@@ -4,10 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-import BannerImg from '../assets/media/img/blood-donation.jpg';
+import BannerImg from '../assets/media/img/doacao-sangue.png';
 
 const styles = theme => {
-  console.log(theme.palette)
   return {
     root: {
       maxWidth: '1200px',
@@ -25,11 +24,17 @@ const styles = theme => {
       height: '500px',
       width: '100%',
       borderRadius: theme.shape.borderRadius,
-      // background: `url(${BannerImg})`,
-      backgroundSize: 'cover',
-      backgroundAttachment: 'fixed',
-      backgroundOrigin: 'center'
+      background: `url(${BannerImg})`,
+      backgroundSize: '100% 100%',
+      backgroundAttachment: 'static',
+      backgroundOrigin: 'center',
+      backgroundRepeat: 'no-repeat'
     },
+
+    bannerTitle: {
+      color: '#FFFFFF',
+      padding: '24px 0 0 24px',
+    }
   }
 }
 
@@ -39,7 +44,9 @@ const banner = (props) => {
 
   return (
     <Paper className={ classes.root }>
-      <div className={ classes.banner }></div>
+      <div className={ classes.banner }>
+        {/*<Typography variant="display3" gutterBottom className={ classes.bannerTitle }>Doe Sangue.</Typography>*/}
+      </div>
     </Paper>
   )
 }
