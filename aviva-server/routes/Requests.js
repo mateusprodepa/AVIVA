@@ -32,6 +32,7 @@ router.route('/')
       title: req.body.title,
       text: req.body.text,
       img: req.body.img,
+      senderId: req.body.senderId
     }
 
     const request = new Request(requestData);
@@ -44,7 +45,18 @@ router.route('/')
   })
 
   .delete((req, res) => {
+    Request.findByIdAndRemove(req.body.id, (err, request) => {
 
+      if(err) return res.sendStatus(403);
+
+      const response = {
+        message: "Pedido deletado com sucesso",
+        id: request.id
+      }
+
+      return res.json(response);
+
+    })
   })
 
   .put((req, res) => {

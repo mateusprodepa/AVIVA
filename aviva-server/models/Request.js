@@ -20,6 +20,11 @@ const request = new Schema({
   img: {
     type: String,
     default: ''
+  },
+
+  senderId: {
+    type: String,
+    required: true
   }
 })
 
