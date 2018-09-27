@@ -30,7 +30,7 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE11 issue.
@@ -54,7 +54,7 @@ const SignIn = props => {
           <Avatar className={classes.avatar}>
             <LockIcon />
           </Avatar>
-          <Typography variant="headline">Sign in</Typography>
+          <Typography variant="headline">Logar na minha conta</Typography>
           <LoginForm
             history={props.history}
             onSubmit={this.handleSubmit}

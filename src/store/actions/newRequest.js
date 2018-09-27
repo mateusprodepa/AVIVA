@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { NEW_REQUEST_URL } from '../../config/config';
 import { getToken } from '../../utils/utils';
+import { getRequests } from './requests';
 
 export const NEW_REQUEST_IS_LOADING = 'NEW_REQUEST_IS_LOADING';
 export const NEW_REQUEST_HAS_ERRORED = 'NEW_REQUEST_HAS_ERRORED';
@@ -21,9 +22,15 @@ export function newRequestHasErrored(bool) {
 }
 
 export function newRequestSuccess(request) {
-  return {
-    type: NEW_REQUEST_SUCCESS,
-    request
+  return async function(dispatch) {
+
+    dispatch({
+      type: NEW_REQUEST_SUCCESS,
+      request
+    })
+
+    dispatch(getRequests());
+
   }
 }
 
@@ -40,6 +47,7 @@ export function newRequest(data) {
     .then(response => {
       if(response.data.status === 'success') {
         console.log(response.data);
+        dispatch(newRequestSuccess(response.data));
       } else {
         console.log(response.data);
       }

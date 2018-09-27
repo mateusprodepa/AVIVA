@@ -14,6 +14,7 @@ import { withStyles } from '@material-ui/core/styles'
 import * as requestActions from '../store/actions/requests';
 
 import Request from './Request';
+import RequestsLoader from './RequestsLoader';
 
 import PropTypes from 'prop-types'
 
@@ -77,7 +78,7 @@ class Requests extends Component {
   }
 
   render() {
-    
+
     const { classes } = this.props;
 
     return (
@@ -86,11 +87,14 @@ class Requests extends Component {
           <main>
           <div className={classNames(classes.layout, classes.cardGrid)}>
             <Grid container spacing={40}>
-              {this.props.requests.map(request => (
-                <Grid item key={request.id} sm={6} md={4} lg={4}>
-                  <Request title={request.title} text={request.text} img={request.img} />
-                </Grid>
-              ))}
+              { this.props.isLoading ?
+                <RequestsLoader /> :
+                this.props.requests.map(request => (
+                  <Grid item key={request.id} sm={6} md={4} lg={4}>
+                    <Request title={request.title} text={request.text} img={request.img} />
+                  </Grid>
+                ))
+               }
             </Grid>
           </div>
         </main>
@@ -104,7 +108,9 @@ Requests.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  requests: state.requests
+  requests: state.requests,
+  isLoading: state.requestsAreLoading,
+  hasErrored: state.requestsHasErrored
 });
 
 const mapDispatchToProps = dispatch =>

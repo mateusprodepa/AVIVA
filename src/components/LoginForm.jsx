@@ -36,7 +36,7 @@ class LoginForm extends Component {
     const { classes, hasErrored } = this.props;
 
     if(this.props.userIsLoggedIn) {
-      
+
       this.props.history.push('/')
 
     }
@@ -49,12 +49,12 @@ class LoginForm extends Component {
           { hasErrored && hasErrored.errors.email ? <Typography variant="caption" color="secondary">{ hasErrored.errors.email }</Typography> : null }
         </FormControl>
         <FormControl margin="normal" required fullWidth>
-          <InputLabel htmlFor="password">Password</InputLabel>
+          <InputLabel htmlFor="password">Senha</InputLabel>
           <Input onChange={this.handleChange} value={this.state.password} name="password" type="password" id="password" autoComplete="current-password"/>
           { hasErrored && hasErrored.errors.password ? <Typography variant="caption" color="secondary">{ hasErrored.errors.password }</Typography> : null }
         </FormControl>
         <Button type="submit" fullWidth variant="raised" color="primary" className={classes.submit} >
-          Sign in
+          Entrar
         </Button>
       </form>
     )

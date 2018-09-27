@@ -144,7 +144,7 @@ class Header extends Component {
                 >
                 <MenuItem onClick={this.handleClose}>Meu Perfil</MenuItem>
                 <MenuItem onClick={this.handleClose}>Configurações da Conta</MenuItem>
-                <MenuItem onClick={this.signOut}>Logout</MenuItem>
+                <MenuItem onClick={this.signOut}>Sair da conta</MenuItem>
               </Menu>
               </React.Fragment>
             ) }
