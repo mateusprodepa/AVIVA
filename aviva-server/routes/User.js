@@ -18,7 +18,8 @@ router.get('/data', verifyToken, (req, res) => {
         id: user.id,
         username: user.username,
         img: user.img,
-        email: user.email
+        email: user.email,
+        city: user.city
       });
     }
   })

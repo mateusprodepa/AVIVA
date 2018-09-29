@@ -22,10 +22,22 @@ const request = new Schema({
     default: ''
   },
 
-  senderId: {
+  sender: {
+    type: Object,
+    default: {},
+    required: true
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+
+  location: {
     type: String,
     required: true
   }
+
 })
 
 

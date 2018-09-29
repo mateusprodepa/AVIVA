@@ -35,7 +35,13 @@ const user = new Schema({
   requests: {
     type: Array,
     default: []
+  },
+
+  city: {
+    type: String,
+    default: 'Belém'
   }
+  
 })
 
 
