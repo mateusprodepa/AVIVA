@@ -1,7 +1,6 @@
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
-import { deepPurple } from '@material-ui/core/colors';
 
 const styles = {
   flex: {

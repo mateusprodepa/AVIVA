@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-import { Header, Drawer, Banner, Requests, Advice, AddRequest } from '../components/index';
+import { Header, Drawer, Banner, Requests, Advice, AddRequest, Dialog } from '../components/index';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,6 +21,7 @@ const home = (props) => {
         Verifique se você está apto para doar clicando aqui.
       </Advice>
       <Requests />
+      <Dialog />
       { userIsLoggedIn ?
         <AddRequest onClick={props.activateRequestsPanel} /> : null }
     </Fragment>

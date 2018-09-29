@@ -8,7 +8,6 @@ import { deepPurple } from '@material-ui/core/colors';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
 import { Paper } from '@material-ui/core';
 
 import PropTypes from 'prop-types';
@@ -67,28 +66,40 @@ const styles = theme => ({
   },
   fileInput: {
     border: 'none'
+  },
+  image: {
+    maxWidth: 120
   }
 });
 
 class AddRequest extends Component {
+
+  constructor(props) {
+    super(props);
+    this.imageRef = React.createRef();
+    this.fileInput = React.createRef();
+  }
 
   state = {
     isLoading: false,
     isOpen: false,
     title: '',
     text: '',
-    img: ''
+    base64: ''
   }
 
   toggleModal = () => {
 
-    const { title, text, img } = this.state;
+    const { title, text, base64 } = this.state;
 
     if(this.state.isOpen) {
       this.props.newRequest({
         title,
         text,
-        img
+        img: base64,
+        senderId: this.props.user.id,
+        senderUsername: this.props.user.username,
+        location: this.props.user.city
       })
     }
 
@@ -104,7 +115,18 @@ class AddRequest extends Component {
   }
 
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  encodeImageFileAsURL = (element) => {
+    const file = element.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      this.imageRef.current.src = base64;
+      this.setState({ base64 })
+    }
+    reader.readAsDataURL(file);
   }
 
   render() {
@@ -113,9 +135,10 @@ class AddRequest extends Component {
       display: 'none'
     }
 
-    const { classes } = this.props;
     const self = this;
-    const { isLoading, isOpen } = this.state;
+
+    const { classes } = this.props;
+    const { isOpen } = this.state;
 
     return (
       <ClickAwayListener onClickAway={this.closeModal}>
@@ -137,7 +160,6 @@ class AddRequest extends Component {
                 value={this.state.title}
                 placeholder="Título do pedido"
                 InputProps={{
-                  inputRef: self.input,
                   classes: {
                     root: classes.inputRoot,
                   }
@@ -152,7 +174,6 @@ class AddRequest extends Component {
                 value={this.state.text}
                 placeholder="Insira o texto aqui (máximo 235 caracteres)"
                 InputProps={{
-                  inputRef: self.input,
                   classes: {
                     root: classes.inputRoot,
                   }
@@ -161,19 +182,18 @@ class AddRequest extends Component {
 
             <div>
               <TextField
-                onChange={this.handleChange}
+                onChange={(e) => this.encodeImageFileAsURL(e)}
                 name='img'
-                value={this.state.img}
-                placeholder="Insira o texto aqui (máximo 235 caracteres)"
                 InputProps={{
                   type: 'file',
-                  inputRef: self.input,
+                  inputRef: self.fileInput,
                   classes: {
                     root: classes.inputRoot,
                   }
                 }}
               />
-            
+            <img alt="request-preview" className={classes.image} src="" ref={this.imageRef}></img>
+
             </div>
 
             </Paper>
@@ -191,7 +211,8 @@ AddRequest.propTypes = {
 const mapStateToProps = state => ({
   requestModal: state.requestModal,
   isLoading: state.newRequestIsLoading,
-  hasErrored: state.newRequestHasErrored
+  hasErrored: state.newRequestHasErrored,
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch =>

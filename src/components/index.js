@@ -8,6 +8,7 @@ import SearchForUserRequests from './SearchForUsersRequests';
 import SideList from './SideList';
 import Advice from './Advice';
 import AddRequest from './AddRequest';
+import Dialog from './Dialog';
 
 export {
   Banner,
@@ -19,5 +20,6 @@ export {
   SearchForUserRequests,
   SideList,
   Advice,
-  AddRequest
+  AddRequest,
+  Dialog
 }

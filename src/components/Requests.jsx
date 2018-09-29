@@ -91,7 +91,15 @@ class Requests extends Component {
                 <RequestsLoader /> :
                 this.props.requests.map(request => (
                   <Grid item key={request.id} sm={6} md={4} lg={4}>
-                    <Request title={request.title} text={request.text} img={request.img} />
+                    <Request
+                      id={request.id}
+                      createdAt={request.createdAt}
+                      creatorName={request.sender.username}
+                      location={request.location}
+                      isFromUser={request.sender.id === this.props.user.id}
+                      title={request.title}
+                      text={request.text}
+                      img={request.img} />
                   </Grid>
                 ))
                }
@@ -110,7 +118,8 @@ Requests.propTypes = {
 const mapStateToProps = state => ({
   requests: state.requests,
   isLoading: state.requestsAreLoading,
-  hasErrored: state.requestsHasErrored
+  hasErrored: state.requestsHasErrored,
+  user: state.user
 });
 
 const mapDispatchToProps = dispatch =>
