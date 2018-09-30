@@ -9,6 +9,7 @@ import SideList from './SideList';
 import Advice from './Advice';
 import AddRequest from './AddRequest';
 import Dialog from './Dialog';
+import Snackbar from './Snackbar';
 
 export {
   Banner,
@@ -21,5 +22,6 @@ export {
   SideList,
   Advice,
   AddRequest,
-  Dialog
+  Dialog,
+  Snackbar
 }

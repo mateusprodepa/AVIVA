@@ -20,7 +20,7 @@ router.route('/:id')
   })
 
   .delete((req, res) => {
-    
+
     if(req.params.id) {
       const requestId = { id: req.params.id };
 
@@ -81,13 +81,13 @@ router.route('/')
 
       request.save((err) => {
         if(err) {
-          return res.json({ database: "Erro ao tentar salvar seu pedido no nosso banco de dados." });
+          return res.json({ status: 'error', database: "Erro ao tentar salvar seu pedido no nosso banco de dados." });
         } else {
 
           const userId = { id: request.sender.id }
 
           User.findOne(userId, (err, user) => {
-            if(err || !user) return res.json({ database: "Erro ao tentar salvar seu pedido no nosso banco de dados." });
+            if(err || !user) return res.json({ status: 'error', database: "Erro ao tentar salvar seu pedido no nosso banco de dados." });
             if(user) {
               user.requests = [ ...user.requests, request ];
               user.save(err => err ? console.log(err) : null);

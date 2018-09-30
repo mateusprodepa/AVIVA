@@ -1,56 +1,50 @@
 import React from 'react';
 
-const variantIcon = {
-  success: CheckCircleIcon,
-  warning: WarningIcon,
-  error: ErrorIcon,
-  info: InfoIcon,
-};
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-const styles1 = theme => ({
-  success: {
-    backgroundColor: green[600],
-  },
-  error: {
-    backgroundColor: theme.palette.error.dark,
-  },
-  info: {
-    backgroundColor: theme.palette.primary.dark,
-  },
-  warning: {
-    backgroundColor: amber[700],
-  },
-  icon: {
-    fontSize: 20,
-  },
-  iconVariant: {
-    opacity: 0.9,
-    marginRight: theme.spacing.unit,
-  },
-  message: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-});
+import { withStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
 
-const styles2 = theme => ({
+import * as snackbarActions from '../store/actions/snackbar';
+
+import MySnackbarContentWrapper from './MySnackbarContentWrapper';
+
+const styles = theme => ({
   margin: {
     margin: theme.spacing.unit,
   },
 });
 
-const Snackbar = (props) => {
-
-  const { classes } = props;
+const WarningSnackbar = (props) => {
 
   return (
-    <MySnackbarContentWrapper
-      variant="success"
-      className={classes.margin}
-      message={props.message}
-    />
+    <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          onClose={() => props.openSnackbar(false)}
+          open={props.isOpen}
+          autoHideDuration={6000}
+        >
+          <MySnackbarContentWrapper
+            onClose={() => props.openSnackbar(false)}
+            variant={props.type}
+            message={props.message}
+          />
+    </Snackbar>
   )
 
 }
 
-export default withStyles(styles2)(Snackbar);
+const mapStateToProps = state => ({
+  isOpen: state.snackbar.isOpen,
+  type: state.snackbar.role,
+  message: state.snackbar.message
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(snackbarActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(WarningSnackbar));

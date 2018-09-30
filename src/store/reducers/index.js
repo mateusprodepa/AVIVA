@@ -6,6 +6,7 @@ import { dialog } from './dialog';
 import { requests, requestsAreLoading, requestsHasErrored } from './requests';
 import { user, userLoginIsLoading, userLoginHasErrored, userIsLoggedIn, userLogoutResetStore } from './auth';
 import { newRequest, newRequestIsLoading, newRequestHasErrored } from './newRequest';
+import { snackbar } from './snackbar';
 
 const reducer = combineReducers({
   router: routerReducer,
@@ -21,7 +22,8 @@ const reducer = combineReducers({
   userLogoutResetStore,
   newRequest,
   newRequestIsLoading,
-  newRequestHasErrored
+  newRequestHasErrored,
+  snackbar
 });
 
 const rootReducer = (state, action) => {

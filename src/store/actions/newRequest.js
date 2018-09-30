@@ -2,6 +2,7 @@ import axios from 'axios';
 import { NEW_REQUEST_URL } from '../../config/config';
 import { getToken } from '../../utils/utils';
 import { getRequests } from './requests';
+import { openSnackbar } from './snackbar';
 
 export const NEW_REQUEST_IS_LOADING = 'NEW_REQUEST_IS_LOADING';
 export const NEW_REQUEST_HAS_ERRORED = 'NEW_REQUEST_HAS_ERRORED';
@@ -45,11 +46,13 @@ export function newRequest(data) {
 
     axios.post(NEW_REQUEST_URL, data, headers)
     .then(response => {
+      console.log(response.data);
       if(response.data.status === 'success') {
         console.log(response.data);
         dispatch(newRequestSuccess(response.data));
+        dispatch(openSnackbar(true, response.data.status, response.data.message));
       } else {
-        console.log(response.data);
+        dispatch(openSnackbar(true, response.data.status, response.data.message));
       }
     })
 
