@@ -16,8 +16,6 @@ import { bindActionCreators } from 'redux';
 import * as drawerActions from '../store/actions/drawer';
 import * as authActions from '../store/actions/auth';
 
-import { logout } from '../utils/utils';
-
 const styles = theme => ({
   root: {
     width: '100%',

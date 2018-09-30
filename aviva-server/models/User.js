@@ -40,8 +40,12 @@ const user = new Schema({
   city: {
     type: String,
     default: 'Belém'
+  },
+
+  bloodType: {
+    type: String
   }
-  
+
 })
 
 
