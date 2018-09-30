@@ -1,13 +1,15 @@
 import axios from 'axios';
 
 import {  LOGIN_URL, USER_DATA_URL } from '../../config/config';
-import { setToken, getToken } from '../../utils/utils';
+import { setToken, getToken, logout } from '../../utils/utils';
+import { getRequests } from './requests.js';
 
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 export const USER_LOGIN_HAS_ERRORED = 'USER_LOGIN_HAS_ERRORED';
 export const USER_LOGIN_IS_LOADING = 'USER_LOGIN_IS_LOADING';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_IS_LOGGED_IN = 'USER_IS_LOGGED_IN';
+export const USER_LOGOUT_RESET_STORE = 'USER_LOGOUT_RESET_STORE';
 
 
 export const userLoginHasErrored = (bool, errors = {}) => ({
@@ -25,6 +27,17 @@ export const userLoginSuccess = (user) => ({
   type: USER_LOGIN_SUCCESS,
   user
 })
+
+export const userLogout = () => async (dispatch) => {
+
+  logout();
+
+  await dispatch({
+    type: USER_LOGOUT_RESET_STORE
+  });
+
+  dispatch(getRequests());
+}
 
 export const isLoggedIn = () => async (dispatch, getState) => {
 

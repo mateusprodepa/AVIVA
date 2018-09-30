@@ -4,7 +4,7 @@ import { routerReducer } from 'react-router-redux';
 import drawerReducer from './drawer';
 import { dialog } from './dialog';
 import { requests, requestsAreLoading, requestsHasErrored } from './requests';
-import { user, userLoginIsLoading, userLoginHasErrored, userIsLoggedIn } from './auth';
+import { user, userLoginIsLoading, userLoginHasErrored, userIsLoggedIn, userLogoutResetStore } from './auth';
 import { newRequest, newRequestIsLoading, newRequestHasErrored } from './newRequest';
 
 const reducer = combineReducers({
@@ -18,9 +18,18 @@ const reducer = combineReducers({
   userLoginIsLoading,
   userLoginHasErrored,
   userIsLoggedIn,
+  userLogoutResetStore,
   newRequest,
   newRequestIsLoading,
   newRequestHasErrored
 });
 
-export default reducer
+const rootReducer = (state, action) => {
+  if (action.type === 'USER_LOGOUT_RESET_STORE') {
+    state = undefined;
+  }
+
+  return reducer(state, action);
+}
+
+export default rootReducer;

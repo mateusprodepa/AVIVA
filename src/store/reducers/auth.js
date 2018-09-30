@@ -2,7 +2,8 @@ import {
   USER_LOGIN_IS_LOADING,
   USER_LOGIN_HAS_ERRORED,
   USER_LOGIN_SUCCESS,
-  USER_IS_LOGGED_IN
+  USER_IS_LOGGED_IN,
+  USER_LOGOUT_RESET_STORE
 } from '../actions/auth';
 
 export function userLoginHasErrored(state = { hasErrored: false, errors: {} }, action) {
@@ -32,6 +33,16 @@ export function userIsLoggedIn(state = false, action) {
   switch(action.type) {
     case USER_IS_LOGGED_IN:
       return action.isLoggedIn;
+
+    default:
+      return state;
+  }
+}
+
+export function userLogoutResetStore(state = {}, action) {
+  switch(action.type) {
+    case USER_LOGOUT_RESET_STORE:
+      return {}
 
     default:
       return state;

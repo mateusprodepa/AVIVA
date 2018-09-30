@@ -18,7 +18,7 @@ import * as newRequestActions from '../store/actions/newRequest';
 
 const styles = theme => ({
   wrapper: {
-    position: 'relative'
+    position: 'relative',
   },
   fabProgress: {
     color: deepPurple[500],
@@ -62,13 +62,25 @@ const styles = theme => ({
       width: '400px'
     },
     margin: '20px auto',
-    width: '500px'
+    width: '500px',
+    padding: 4,
   },
   fileInput: {
-    border: 'none'
+    maxWidth: 400,
+    margin: '0 auto',
+    border: 'none',
+    textAlign: 'center',
   },
   image: {
-    maxWidth: 120
+    textAlign: 'center',
+    maxWidth: 200,
+    margin: '0 auto',
+  },
+  fileInputWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column'
   }
 });
 
@@ -90,6 +102,13 @@ class AddRequest extends Component {
 
   toggleModal = () => {
 
+    const initialState = {
+      isLoading: false,
+      isOpen: false,
+      title: '',
+      text: '',
+    }
+
     const { title, text, base64 } = this.state;
 
     if(this.state.isOpen) {
@@ -101,6 +120,8 @@ class AddRequest extends Component {
         senderUsername: this.props.user.username,
         location: this.props.user.city
       })
+
+      this.setState(initialState)
     }
 
     this.setState({
@@ -120,13 +141,20 @@ class AddRequest extends Component {
 
   encodeImageFileAsURL = (element) => {
     const file = element.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64 = reader.result;
-      this.imageRef.current.src = base64;
-      this.setState({ base64 })
+    if(file) {
+      if(file.type.includes('image')) {
+        const reader = new FileReader();
+        reader.onloadend = async () => {
+          const base64 = reader.result;
+          await this.setState({ base64 })
+          this.imageRef.current.src = base64;
+        }
+        reader.readAsDataURL(file);
+      }
+    } else {
+      this.imageRef.current.src = '';
+      this.setState({ base64: '' });
     }
-    reader.readAsDataURL(file);
   }
 
   render() {
@@ -180,7 +208,7 @@ class AddRequest extends Component {
                 }}
               />
 
-            <div>
+            <div className={classes.fileInputWrapper}>
               <TextField
                 onChange={(e) => this.encodeImageFileAsURL(e)}
                 name='img'
@@ -192,7 +220,7 @@ class AddRequest extends Component {
                   }
                 }}
               />
-            <img alt="request-preview" className={classes.image} src="" ref={this.imageRef}></img>
+            { this.state.base64 !== '' ? <img alt="request-preview" className={classes.image} src="" ref={this.imageRef}></img> : null }
 
             </div>
 

@@ -36,9 +36,7 @@ class LoginForm extends Component {
     const { classes, hasErrored } = this.props;
 
     if(this.props.userIsLoggedIn) {
-
       this.props.history.push('/')
-
     }
 
     return (
@@ -58,6 +56,7 @@ class LoginForm extends Component {
         </Button>
       </form>
     )
+
   }
 }
 

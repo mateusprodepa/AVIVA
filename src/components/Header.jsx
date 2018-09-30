@@ -98,18 +98,20 @@ class Header extends Component {
 
   signOut = () => {
     this.handleClose();
-    logout();
+    this.props.userLogout();
+    // logout();
   }
 
+  componentDidMount() {
+    this.props.isLoggedIn();
+  }
 
   render() {
     const { classes } = this.props;
 
-    this.props.isLoggedIn();
-
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
             <IconButton onClick={ () => this.props.toggleDrawer(1) } className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />

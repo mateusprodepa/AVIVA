@@ -13,6 +13,7 @@ const styles = theme => {
       margin: theme.spacing.unit ,
       marginLeft: 'auto',
       marginRight: 'auto',
+      marginTop: 75,
       borderRadius: theme.shape.borderRadius,
       [theme.breakpoints.up('sm')]: {
         width: '80%'
