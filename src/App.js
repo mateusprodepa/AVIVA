@@ -11,5 +11,5 @@ export default app;
 // TODO: Clear the inputs once the user has submitted his response DONE 100%
 // TODO: Update the requests when the user logouts DONE 100%
 // TODO: Delete the request and the user request when deleted DONE 100%
-// TODO: Create success and fail snackbars when the user submits his request data
-// TODO: Create a new field for the user, determining his blood type
+// TODO: Create success and fail snackbars when the user submits his request data DONE 100%
+// TODO: Create a new field for the user, determining his blood type DONE 100%
