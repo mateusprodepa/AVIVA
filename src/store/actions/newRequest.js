@@ -48,7 +48,6 @@ export function newRequest(data) {
     .then(response => {
       console.log(response.data);
       if(response.data.status === 'success') {
-        console.log(response.data);
         dispatch(newRequestSuccess(response.data));
         dispatch(openSnackbar(true, response.data.status, response.data.message));
       } else {

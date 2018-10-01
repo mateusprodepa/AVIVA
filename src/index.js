@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+
+import './index.css';
 
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -11,6 +12,9 @@ import Store from './store/store';
 
 import { MuiThemeProvider as Theme, createMuiTheme } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
+
+// eslint-disable-next-line
+import { socket } from './config/socket';
 
 const theme = createMuiTheme({
   palette: {

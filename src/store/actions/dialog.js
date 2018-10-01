@@ -20,7 +20,6 @@ export const deleteRequest = (id) => async (dispatch) => {
 
   axios.delete(DELETE_REQUEST_URL + id)
     .then(response => {
-      console.log(response);
       dispatch(newDialog());
       dispatch(openSnackbar(true, response.data.status, response.data.message));
       dispatch({
