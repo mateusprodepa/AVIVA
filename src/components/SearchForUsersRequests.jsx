@@ -124,6 +124,7 @@ const styles = theme => ({
     height: 70,
     flexGrow: 1,
     maxWidth: '1200px',
+    width: '90%',
     margin: '0 auto',
     paddingTop: '14px',
     marginBottom: 0,

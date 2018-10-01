@@ -1,9 +1,11 @@
 const express = require('express');
-const morgan = require('morgan');
-const http = require('http');
-const mongoose = require('mongoose');
-
 const app = express();
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const sockets = require('./sockets/index');
+
 const port = process.env.PORT || 5000;
 const connection = mongoose.connect('mongodb://localhost/aviva_db', { useNewUrlParser: true, useCreateIndex: true })
 
@@ -19,6 +21,6 @@ app.use('/api/v1/auth', AuthRoute);
 app.use('/api/v1/requests', RequestRoute);
 app.use('/api/v1/user', UserRoute);
 
-const server = http.createServer(app);
+http.listen(port, () => console.info(`[x] => Servidor rodando na porta ${port}`));
 
-server.listen(port, () => console.info(`[x] => Servidor rodando na porta ${port}`));
+sockets.createSockets(io);

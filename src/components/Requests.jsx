@@ -22,10 +22,12 @@ const styles = theme => ({
   paper: {
     borderRadius: theme.shape.borderRadius,
     maxWidth: '1200px',
-    margin: theme.spacing.unit,
     marginLeft: 'auto',
     marginRight: 'auto',
     [theme.breakpoints.up('sm')]: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      margin: theme.spacing.unit,
       width: '80%'
     },
   },

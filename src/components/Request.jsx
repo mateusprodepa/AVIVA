@@ -43,6 +43,19 @@ const styles = theme => ({
   date: {
     paddingBottom: 6
   },
+
+  cardActions: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+
+  deleteWrapper: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  }
 })
 
 
@@ -72,7 +85,7 @@ class Request extends Component {
               <Typography gutterBottom variant="headline" component="h2" color="secondary">
                 { this.props.title }
               </Typography>
-              <Typography variant="subheading">
+              <Typography variant="body2">
                 { this.props.location }
               </Typography>
               <Typography variant="caption" color="primary" className={classes.date}>
@@ -82,17 +95,21 @@ class Request extends Component {
                 { this.props.text }
               </Typography>
             </CardContent>
-            <CardActions>
-              <IconButton aria-label="Message" color="primary">
-                <MessageIcon />
-              </IconButton>
-              <IconButton aria-label="Share" color="primary">
-                <ShareIcon />
-              </IconButton>
+            <CardActions className={classes.cardActions}>
+              <div className={classes.actionsWrapper}>
+                <IconButton aria-label="Message" color="primary">
+                  <MessageIcon />
+                </IconButton>
+                <IconButton aria-label="Share" color="primary">
+                  <ShareIcon />
+                </IconButton>
+              </div>
               { this.props.isFromUser ?
-                <IconButton onClick={() => this.createNewDialog(true, 'Deletar este pedido?', `Você tem certeza que deseja apagar ${this.props.title}?`, this.props.id)} aria-label="Delete" color="secondary">
-                  <DeleteIcon />
-                </IconButton> :
+                  <div className={classes.deleteWrapper}>
+                    <IconButton onClick={() => this.createNewDialog(true, 'Deletar este pedido?', `Você tem certeza que deseja apagar ${this.props.title}?`, this.props.id)} aria-label="Delete">
+                      <DeleteIcon />
+                    </IconButton>
+                  </div> :
                 null }
               </CardActions>
             </Card>

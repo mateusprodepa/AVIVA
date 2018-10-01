@@ -54,7 +54,7 @@ const SignIn = props => {
           <Avatar className={classes.avatar}>
             <LockIcon />
           </Avatar>
-          <Typography variant="headline">Logar na minha conta</Typography>
+          <Typography variant="headline">Entre na sua conta</Typography>
           <LoginForm
             history={props.history}
             onSubmit={this.handleSubmit}

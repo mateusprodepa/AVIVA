@@ -7,6 +7,7 @@ import { requests, requestsAreLoading, requestsHasErrored } from './requests';
 import { user, userLoginIsLoading, userLoginHasErrored, userIsLoggedIn, userLogoutResetStore } from './auth';
 import { newRequest, newRequestIsLoading, newRequestHasErrored } from './newRequest';
 import { snackbar } from './snackbar';
+import { advice } from './advice';
 
 const reducer = combineReducers({
   router: routerReducer,
@@ -23,7 +24,8 @@ const reducer = combineReducers({
   newRequest,
   newRequestIsLoading,
   newRequestHasErrored,
-  snackbar
+  snackbar,
+  advice
 });
 
 const rootReducer = (state, action) => {

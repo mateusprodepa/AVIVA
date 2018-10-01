@@ -10,13 +10,13 @@ const styles = theme => {
   return {
     root: {
       maxWidth: '1200px',
-      margin: theme.spacing.unit ,
+      margin: 0,
       marginLeft: 'auto',
       marginRight: 'auto',
-      marginTop: 71,
-      borderRadius: theme.shape.borderRadius,
       [theme.breakpoints.up('sm')]: {
-        width: '80%'
+        width: '80%',
+        marginTop: 71,
+        borderRadius: theme.shape.borderRadius,
       },
     },
 
@@ -24,9 +24,9 @@ const styles = theme => {
       backgroundColor: '#F74D4D',
       height: '500px',
       width: '100%',
-      borderRadius: theme.shape.borderRadius,
+      // borderRadius: theme.shape.borderRadius,
       background: `url(${BannerImg})`,
-      backgroundSize: '100% 100%',
+      backgroundSize: 'contain',
       backgroundAttachment: 'static',
       backgroundOrigin: 'center',
       backgroundRepeat: 'no-repeat'

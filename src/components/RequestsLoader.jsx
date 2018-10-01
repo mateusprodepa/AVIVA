@@ -8,7 +8,8 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    padding: '100px 0'
+    padding: '100px 0',
+    zIndex: 10000
   },
   fabProgress: {
     // color: deepPurple[500]

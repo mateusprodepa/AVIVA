@@ -35,11 +35,16 @@ const styles = theme => ({
     right: '20px',
   },
   paper: {
+    padding: '16px 0',
     position: 'fixed',
     width: '100%',
     height: '100%',
-    top: 0,
+    top: '56px',
     left: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     [theme.breakpoints.up('sm')]: {
       position: 'absolute',
       width: 500,
@@ -47,10 +52,6 @@ const styles = theme => ({
       top: -528,
       left: -428,
       zIndex: 0,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
     }
   },
   addBtn: {
@@ -62,7 +63,8 @@ const styles = theme => ({
       width: '400px'
     },
     margin: '20px auto',
-    width: '500px',
+    minWidth: '300px',
+    maxWidth: '500px',
     padding: 4,
   },
   fileInput: {
@@ -193,7 +195,7 @@ class AddRequest extends Component {
                   }
                 }}
               />
-
+              { /*eslint-disable*/ }
               <TextField
                 onChange={this.handleChange}
                 name='text'
@@ -201,28 +203,31 @@ class AddRequest extends Component {
                 rows="3"
                 value={this.state.text}
                 placeholder="Insira o texto aqui (máximo 235 caracteres)"
+                inputProps={{
+                  maxLength: 235
+                }}
                 InputProps={{
                   classes: {
                     root: classes.inputRoot,
                   }
                 }}
               />
+              { /* eslint-enable */ }
+              <div className={classes.fileInputWrapper}>
+                <TextField
+                  onChange={(e) => this.encodeImageFileAsURL(e)}
+                  name='img'
+                  InputProps={{
+                    type: 'file',
+                    inputRef: self.fileInput,
+                    classes: {
+                      root: classes.inputRoot,
+                    }
+                  }}
+                />
+                { this.state.base64 !== '' ? <img alt="request-preview" className={classes.image} src="" ref={this.imageRef}></img> : null }
 
-            <div className={classes.fileInputWrapper}>
-              <TextField
-                onChange={(e) => this.encodeImageFileAsURL(e)}
-                name='img'
-                InputProps={{
-                  type: 'file',
-                  inputRef: self.fileInput,
-                  classes: {
-                    root: classes.inputRoot,
-                  }
-                }}
-              />
-            { this.state.base64 !== '' ? <img alt="request-preview" className={classes.image} src="" ref={this.imageRef}></img> : null }
-
-            </div>
+              </div>
 
             </Paper>
           </div>
