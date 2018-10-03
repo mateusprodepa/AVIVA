@@ -22,22 +22,22 @@ const sideList = (props) => {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="Teste" />
+          <ListItemText primary="Meus Pedidos" />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <DraftsIcon />
           </ListItemIcon>
-          <ListItemText primary="Teste" />
+          <ListItemText primary="Conversas" />
         </ListItem>
       </List>
       <Divider />
       <List component="nav">
         <ListItem button>
-          <ListItemText primary="Teste" />
+          <ListItemText primary="Mais informações" />
         </ListItem>
         <ListItem button component="a" href="#simple-list">
-          <ListItemText primary="Teste" />
+          <ListItemText primary="Ajude o app a crescer" />
         </ListItem>
       </List>
     </div>
