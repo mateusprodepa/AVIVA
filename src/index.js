@@ -13,8 +13,7 @@ import Store from './store/store';
 import { MuiThemeProvider as Theme, createMuiTheme } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
 
-// eslint-disable-next-line
-import { socket } from './config/socket';
+// import { socket } from './config/socket';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,6 +22,10 @@ const theme = createMuiTheme({
     }
   }
 })
+
+// socket.emit('getRooms', 'RWGtJDq8x');
+// socket.on('userRooms', (rooms) => console.info(rooms));
+
 
 ReactDOM.render(
 

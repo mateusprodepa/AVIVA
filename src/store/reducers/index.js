@@ -3,11 +3,12 @@ import { routerReducer } from 'react-router-redux';
 
 import drawerReducer from './drawer';
 import { dialog } from './dialog';
+import { snackbar } from './snackbar';
+import { advice } from './advice';
 import { requests, requestsAreLoading, requestsHasErrored } from './requests';
 import { user, userLoginIsLoading, userLoginHasErrored, userIsLoggedIn, userLogoutResetStore } from './auth';
 import { newRequest, newRequestIsLoading, newRequestHasErrored } from './newRequest';
-import { snackbar } from './snackbar';
-import { advice } from './advice';
+import { rooms, roomsAreLoading, roomsHasErrored } from './rooms';
 
 const reducer = combineReducers({
   router: routerReducer,
@@ -25,7 +26,10 @@ const reducer = combineReducers({
   newRequestIsLoading,
   newRequestHasErrored,
   snackbar,
-  advice
+  advice,
+  rooms,
+  roomsAreLoading,
+  roomsHasErrored
 });
 
 const rootReducer = (state, action) => {

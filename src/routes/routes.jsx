@@ -7,6 +7,8 @@ import Loadable from 'react-loadable';
 
 import { isAuthenticated } from '../utils/utils';
 
+import RoutesContainer from '../components/RoutesContainer';
+
 const AsyncHome = Loadable({
   loader: () => import('../pages/Home'),
   loading: LoadingPage,
@@ -41,8 +43,10 @@ const AuthRoute = ({ component: Component, ...rest }) => (
 
 const routes = () => (
   <Switch>
-    <Route path='/' component={ AsyncHome } exact />
-    <AuthRoute path='/signIn' component={ AsyncSignIn } exact />
+    <RoutesContainer>
+      <Route path='/' component={ AsyncHome } exact />
+      <AuthRoute path='/signIn' component={ AsyncSignIn } exact />
+    </RoutesContainer>
   </Switch>
 )
 

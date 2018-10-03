@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const _id = require('shortid')
 
 const user = new Schema({
+  
   id: {
     type: String,
     required: true,
@@ -44,6 +45,11 @@ const user = new Schema({
 
   bloodType: {
     type: String
+  },
+
+  chatRooms: {
+    type: Array,
+    default: []
   }
 
 })
