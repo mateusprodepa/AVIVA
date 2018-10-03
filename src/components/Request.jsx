@@ -18,6 +18,7 @@ import LazyLoad from 'react-lazyload';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as dialogActions from '../store/actions/dialog';
+import * as authActions from '../store/actions/auth';
 
 const styles = theme => ({
 
@@ -37,7 +38,7 @@ const styles = theme => ({
   },
 
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '56.25%',
   },
 
   date: {
@@ -55,7 +56,12 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center'
+  },
+
+  text: {
+    textAlign: 'left'
   }
+
 })
 
 
@@ -91,15 +97,17 @@ class Request extends Component {
               <Typography variant="caption" color="primary" className={classes.date}>
                 { date }
               </Typography>
-              <Typography>
+              <Typography className={classes.text}>
                 { this.props.text }
               </Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
               <div className={classes.actionsWrapper}>
-                <IconButton aria-label="Message" color="primary">
-                  <MessageIcon />
-                </IconButton>
+                { this.props.userIsLoggedIn ?
+                  <IconButton aria-label="Message" color="primary">
+                    <MessageIcon />
+                  </IconButton> :
+                  null }
                 <IconButton aria-label="Share" color="primary">
                   <ShareIcon />
                 </IconButton>
@@ -119,7 +127,11 @@ class Request extends Component {
 
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(dialogActions, dispatch);
+const mapStateToProps = state => ({
+  userIsLoggedIn: state.userIsLoggedIn
+})
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(Request));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ ...dialogActions, ...authActions }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Request));
