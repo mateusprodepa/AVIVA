@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as dialogActions from '../store/actions/dialog';
 import * as authActions from '../store/actions/auth';
+import * as roomActions from '../store/actions/rooms';
 
 const styles = theme => ({
 
@@ -71,7 +72,15 @@ class Request extends Component {
     this.props.newDialog(open, title, text, id);
   }
 
+  createNewChatRoom() {
+
+    const users = [ this.props.userData.id, this.props.creatorId ]
+
+    this.props.createNewRoom(users);
+  }
+
   render() {
+    console.log(this.props);
     const { classes } = this.props;
     const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
                         "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
@@ -104,7 +113,7 @@ class Request extends Component {
             <CardActions className={classes.cardActions}>
               <div className={classes.actionsWrapper}>
                 { this.props.userIsLoggedIn ?
-                  <IconButton aria-label="Message" color="primary">
+                  <IconButton onClick={() => this.createNewChatRoom()} aria-label="Message" color="primary">
                     <MessageIcon />
                   </IconButton> :
                   null }
@@ -128,10 +137,11 @@ class Request extends Component {
 }
 
 const mapStateToProps = state => ({
-  userIsLoggedIn: state.userIsLoggedIn
+  userIsLoggedIn: state.userIsLoggedIn,
+  userData: state.user
 })
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...dialogActions, ...authActions }, dispatch);
+  bindActionCreators({ ...dialogActions, ...authActions, ...roomActions }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Request));

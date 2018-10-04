@@ -1,3 +1,4 @@
+const _id = require('shortid');
 const User = require('../models/User');
 const Room = require('../models/Room');
 
@@ -10,11 +11,11 @@ module.exports = {
       console.log("Nova conexão: " + socket.id);
 
       socket.on('getRooms', (id) => {
-        console.log(id);
+
         User.findOne({ id }, (err, user) => {
 
           if(err || !user)
-            return socket.emit('impossibleToFindUser', 'Erro ao encontrar seu usuário no nosso banco de dados');
+            return socket.emit('unableToFindUser', 'Erro ao encontrar seu usuário no nosso banco de dados');
 
 
           const rooms = user.chatRooms;
@@ -31,21 +32,29 @@ module.exports = {
 
       });
 
-      socket.on('createNewRoom', (users, id) => {
+      socket.on('createNewRoom', (usersIds) => {
 
-        users.forEach(user => {
-          User.find({ id: user.id }, (err, user) => {
+        usersIds.forEach(userId => {
 
-            if(err || !user)
-              return socket.emit('impossibleToFindUser', 'Erro ao encontrar seu usuário no nosso banco de dados');
+          let killRoomCreationAttempt = false;
 
-            const room = new Room(id, users);
+          User.findOne({ id: userId }, (err, user) => {
+
+
+            if(err || !user || killRoomCreationAttempt) {
+              killRoomCreationAttempt = true;
+              return socket.emit('unableToFindUser', 'Erro ao encontrar seu usuário no nosso banco de dados');
+            }
+
+            const room = new Room(_id.generate(), usersIds);
 
             user.chatRooms.push(room);
 
             socket.join(room);
 
-            user.save(err => socket.emit('Não foi possível criar a sala de conversa.'));
+            user.save(err => socket.emit('unableToCreateRoom', 'Não foi possível criar a sala de conversa.'));
+
+            socket.emit('userRooms', user.chatRooms);
 
           });
         })

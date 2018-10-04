@@ -1,6 +1,7 @@
 import { socket } from '../../config/socket';
 
 const on = (event) => (does) => socket.on(event, does);
+const emit = (event) => (data) => socket.emit(event, data);
 
 export const GET_ROOMS = 'GET_ROOMS';
 export const GET_ROOMS_HAS_ERRORED = 'GET_ROOMS_HAS_ERRORED';
@@ -32,10 +33,21 @@ export const getRooms = () => async (dispatch, getState) => {
 
 }
 
+export const createNewRoom = (users) => async (dispatch) => {
+  
+  emit('createNewRoom')(users)
+
+}
+
 export const setRoomsListener = () => async (dispatch, getState) => {
 
-  on('userRooms', (rooms) => dispatch({ type: GET_ROOMS_SUCCESS, rooms }));
-  on('impossibleToFindUser', (message) => console.info(message));
+  on('userRooms')
+    // eslint-disable-next-line
+    ((rooms) => dispatch({ type: GET_ROOMS_SUCCESS, rooms }));
+
+  on('impossibleToFindUser')
+    // eslint-disable-next-line
+    ((message) => console.info(message));
 
   return new Promise((resolve) => resolve(true))
 

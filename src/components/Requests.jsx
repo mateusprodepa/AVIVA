@@ -100,6 +100,7 @@ class Requests extends Component {
               id={request.id}
               createdAt={request.createdAt}
               creatorName={request.sender.username}
+              creatorId={request.sender.id}
               location={request.location}
               isFromUser={request.sender.id === this.props.user.id}
               title={request.title}
